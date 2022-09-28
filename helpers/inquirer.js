@@ -64,13 +64,13 @@ const readInput = async (message) => {
     return desc;
 };
 
-const listTasksDelete = async (tasks = []) => {
-    const choices = tasks.map((task, i) => {
+const listPlaces = async (places = []) => {
+    const choices = places.map((place, i) => {
         const idx = `${i + 1}.`.green;
 
         return {
-            value: task.id,
-            name: `${idx} ${task.description}`,
+            value: place.id,
+            name: `${idx} ${place.name}`,
         };
     });
 
@@ -83,7 +83,7 @@ const listTasksDelete = async (tasks = []) => {
         {
             type: "list",
             name: "id",
-            message: "Delete",
+            message: "Select a city",
             choices,
         },
     ];
@@ -105,60 +105,11 @@ const confirm = async (message) => {
     return ok;
 };
 
-const showChecklist = async (tasks = []) => {
-    const choices = tasks.map((task, i) => {
-        const idx = `${i + 1}.`.green;
-
-        return {
-            value: task.id,
-            name: `${idx} ${task.description}`,
-            checked: task.completedAt ? true : false,
-        };
-    });
-
-    const question = [
-        {
-            type: "checkbox",
-            name: "ids",
-            message: "Select",
-            choices,
-        },
-    ];
-
-    const { ids } = await inquirer.prompt(question);
-    return ids;
-}
-
-const toggleCompleted = async (tasks = []) => {
-    const choices = tasks.map((task, i) => {
-        const idx = `${i + 1}.`.green;
-
-        return {
-            value: task.id,
-            name: `${idx} ${task.description}`,
-            checked: task.completedAt ? true : false,
-        };
-    });
-
-    const question = [
-        {
-            type: "checkbox",
-            name: "ids",
-            message: "Select",
-            choices,
-        },
-    ];
-
-    const { ids } = await inquirer.prompt(question);
-    return ids;
-}
 
 module.exports = {
     inquirerMenu,
     pause,
     readInput,
-    listTasksDelete,
+    listPlaces,
     confirm,
-    showChecklist,
-    toggleCompleted,
 };
